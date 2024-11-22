@@ -9,9 +9,15 @@ import databaseConfig from 'src/config/database.config';
 import enviromentValidation from 'src/config/enviroment.validation';
 import { AuthModule } from 'src/auth/auth.module';
 import { UsersModule } from 'src/users/users.module';
+import jwtConfig from 'src/auth/config/jwt.config';
+import { JwtModule } from '@nestjs/jwt';
+import { APP_GUARD } from '@nestjs/core';
+import { AccessTokenGuardGuard } from 'src/auth/guard/access-token-guard.guard';
 
 @Module({
   imports: [
+    ConfigModule.forFeature(jwtConfig),
+    JwtModule.registerAsync(jwtConfig.asProvider()),
     MoviesModule,
     AuthModule,
     UsersModule,
@@ -43,6 +49,13 @@ import { UsersModule } from 'src/users/users.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    /**global guard */
+    {
+      provide: APP_GUARD,
+      useClass: AccessTokenGuardGuard,
+    },
+  ],
 })
 export class AppModule {}

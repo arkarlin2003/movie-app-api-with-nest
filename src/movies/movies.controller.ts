@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { MoviesService } from './services/movies.service';
 import {
   ApiOkResponse,
@@ -7,6 +7,7 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import { CreateMovieDto } from './dtos/create-movie.dto';
+import { AccessTokenGuardGuard } from 'src/auth/guard/access-token-guard.guard';
 
 @Controller('movies')
 export class MoviesController {
@@ -20,6 +21,7 @@ export class MoviesController {
     status: 200,
     description: 'all movies',
   })
+  // @UseGuards(APP_GUARD)
   getMovies() {
     return this.moviesService.getMovies();
   }
