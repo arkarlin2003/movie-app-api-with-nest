@@ -26,31 +26,31 @@ export class SignInProvider {
 
   public async signIn(loginDto: LoginDto) {
     let existUser;
-    try {
-      existUser = await this.usersService.findUserByEmail(loginDto.email);
-    } catch (error) {
-      throw new RequestTimeoutException(
-        'Unable to process your request at the moment please try later',
-        {
-          description: 'Error connecting to the database',
-        },
-      );
-    }
+    // try {
+    existUser = await this.usersService.findUserByEmail(loginDto.email);
+    // } catch (error) {
+    //   throw new RequestTimeoutException(
+    //     'Unable to process your request at the moment please try later',
+    //     {
+    //       description: 'Error connecting to the database',
+    //     },
+    //   );
+    // }
 
-    if (!existUser) throw new BadRequestException("Email doesn't exist!");
+    // if (!existUser) throw new BadRequestException("Email doesn't exist!");
 
     let isEqual = false;
 
-    try {
-      isEqual = await this.hashingProvider.comparePassword(
-        loginDto.password,
-        existUser.password,
-      );
-    } catch (error) {
-      throw new RequestTimeoutException(error, {
-        description: 'Could not compare the password',
-      });
-    }
+    // try {
+    isEqual = await this.hashingProvider.comparePassword(
+      loginDto.password,
+      existUser.password,
+    );
+    // } catch (error) {
+    //   throw new RequestTimeoutException(error, {
+    //     description: 'Could not compare the password',
+    //   });
+    // }
 
     if (!isEqual) {
       throw new UnauthorizedException('Password does not match');

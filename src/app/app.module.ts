@@ -11,8 +11,9 @@ import { AuthModule } from 'src/auth/auth.module';
 import { UsersModule } from 'src/users/users.module';
 import jwtConfig from 'src/auth/config/jwt.config';
 import { JwtModule } from '@nestjs/jwt';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { AccessTokenGuardGuard } from 'src/auth/guard/access-token-guard.guard';
+import { AuthenticateGuardGuard } from 'src/auth/guard/authenticate-guard/authenticate-guard.guard';
 
 @Module({
   imports: [
@@ -54,8 +55,9 @@ import { AccessTokenGuardGuard } from 'src/auth/guard/access-token-guard.guard';
     /**global guard */
     {
       provide: APP_GUARD,
-      useClass: AccessTokenGuardGuard,
+      useClass: AuthenticateGuardGuard,
     },
+    AccessTokenGuardGuard,
   ],
 })
 export class AppModule {}

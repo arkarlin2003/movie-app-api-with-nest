@@ -1,0 +1,16 @@
+
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "karkar@gmail.com",
+  "password": "string"
+}
+
+
+
+
+GET http://localhost:3000/movies
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjgsImVtYWlsIjoia2Fya2FyQGdtYWlsLmNvbSIsImlhdCI6MTczMjYxMTk1MiwiZXhwIjoxNzMyNjE1NTUyLCJhdWQiOiJsb2NhbGhvc3Q6MzAwMCIsImlzcyI6ImxvY2FsaG9zdDozMDAwIn0.KqXEIWPo_IEf32LixmLjT1i4Jsv7Q42t93SOmFkGrcQ
